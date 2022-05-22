@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="kadai4.css"/>
+<link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+<title>Chatアプリ</title>
+
+</head>
+<body>
+
+<!-- コンテンツ表示画面 -->
+
+<p class="header">MIL 3rd</p>
+
+<div class="sticky">
+   <input type="text" id="uname" value="" placeholder="Name"> 
+</div>
+
+<div>
+    <textarea name="" id="text" cols="30" rows="10" value="" placeholder="Text"></textarea>
+
+  </div>
+
+  <div>
+    <button id="send">Send</button>
+  </div>
+
+<div id="output" style="overflow: auto;height: 300px;">
+</div>
+
+
+<!--/ コンテンツ表示画面 -->
+
+
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<!--** 以下Firebase **-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.1/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+    import { getDatabase, ref, push, set, onChildAdded, remove, onChildRemoved }
+        from "https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.1/firebase-database.min.js";
+    
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCPp2Vh2VYXaXS85lInZ1tlZ1tqqf19R4E",
+      authDomain: "fir-demo-54856.firebaseapp.com",
+      projectId: "fir-demo-54856",
+      storageBucket: "fir-demo-54856.appspot.com",
+      messagingSenderId: "460699791099",
+      appId: "1:460699791099:web:8cfda03b9bcafee71e4a5e"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    //書き込み場所(DB)の指示
+    const db = getDatabase(app);
+    const dbRef = ref(db, 'chat');
+  
+  $('#send').on('click', function () {
+      const msg = {
+          uname: $('#uname').val(),
+          text: $('#text').val()
+      }
+      const newPostRef = push (dbRef);
+      set(newPostRef, msg);
+
+        //const uname = $('#uname').val();
+        //const text = $('#text').val();
+        //alert(uname);
+        //alert(text);
+        //alert('click')
+  });
+
+  onChildAdded(dbRef, function(data){
+      const msg = data.val();
+      const key = data.key;
+      const h = `<p id="${key}" class="message">${msg.uname}: ${msg.text}</p>`;
+      $('#output').append(h);
+      //console.log(msg, key);
+  });
+
+  
+  $("#output").on("click",".message", function(){
+    const dlt = $(this).attr('id');
+    remove(ref(db, "chat/" + dlt));
+  });
+
+  onChildRemoved(dbRef, function(data){
+        const key = '#'+data.key;
+        $(key).remove();
+    });
+
+  $('#text').on('keydown', function(e){
+      console.log(e.key);
+      //eはeventの略
+      if(e.keyCode === 13) {
+          //e.keyCodeを使わないと、Enterが日本語の時に変換として扱われてしまう
+      const msg = {
+          uname: $('#uname').val(),
+          text: $('#text').val()
+      }
+      const newPostRef = push (dbRef);
+      set(newPostRef, msg);
+    }
+  });
+
+
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

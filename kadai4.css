@@ -1,0 +1,75 @@
+body{
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    background-image: url(https://sakareko.com/wp-content/uploads/2020/05/shiba-1024x683.jpg);
+    background-size: cover;
+}   
+
+.header{
+    font-family: "M PLUS Rounded 1c"; 
+    font-size: 20px;
+    font-weight: 50;
+    background-color: navy;
+    color:white;
+    margin-top: 0;
+}
+
+#uname {
+    background-color: white;
+    opacity: 0.5;
+    width: 300px;
+    font-size: 16px;
+    font-family: "M PLUS Rounded 1c";
+    color: black;
+}
+
+
+#text {
+    background-color: white;
+    opacity: 0.5;
+    width: 300px;
+    font-size: 16px;
+    font-family: "M PLUS Rounded 1c"; 
+    color: black;
+}
+
+#output {
+    background-color: white;
+    opacity: 0.5;
+    border: 10px;
+    border-radius: 10px 0px 0 0;
+    color: blue;
+    font-weight: bolder;
+    padding-left: 10px;
+    margin-top: 40px;
+    width: 300px;
+    font-size: 16px;
+    font-family: "M PLUS Rounded 1c"; 
+    text-align: left;
+    margin-right: auto;
+    margin-left: auto;
+    position:-webkit-sticky;
+}
+
+#send {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    font-size: 16px;
+    font-family: "M PLUS Rounded 1c"; 
+}
+
+#send:hover {
+    background: rgb(234, 255, 0);
+    color: black;
+    cursor: pointer;
+}
+
+.scroll{
+    height: 100px;
+    width: 400px;
+    overflow-y: scroll;
+    scrollbar-color: tomato;
+}
